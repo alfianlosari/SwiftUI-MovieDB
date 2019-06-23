@@ -318,9 +318,9 @@ fileprivate struct CreditImage: View {
                 Image(uiImage: imageData.image!)
                     .resizable()
                     .clipShape(Circle())
+                    .aspectRatio(contentMode: .fill)
                     .overlay(Circle().stroke(Color.secondary, lineWidth: 1))
                     .frame(width: 100.0, height: 100.0)
-                    .aspectRatio(contentMode: .fit)
             }
             }
             .onAppear {
