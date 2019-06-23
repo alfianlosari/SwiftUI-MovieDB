@@ -161,13 +161,11 @@ fileprivate struct LinkRow: View {
     var url: URL?
     
     var body: some View {
-        PresentationButton(
+        PresentationButton(destination: SafariView(url: url!).edgesIgnoringSafeArea(.bottom)) {
             Text(name)
                 .font(.caption)
                 .color(.primary)
-            , destination: SafariView(url: url!)
-                .edgesIgnoringSafeArea(.bottom)
-        )
+        }
     }
 }
 
