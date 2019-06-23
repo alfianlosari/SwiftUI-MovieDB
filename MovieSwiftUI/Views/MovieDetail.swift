@@ -161,13 +161,11 @@ fileprivate struct LinkRow: View {
     var url: URL?
     
     var body: some View {
-        PresentationButton(
+        PresentationButton(destination: SafariView(url: url!).edgesIgnoringSafeArea(.bottom)) {
             Text(name)
                 .font(.caption)
                 .color(.primary)
-            , destination: SafariView(url: url!)
-                .edgesIgnoringSafeArea(.bottom)
-        )
+        }
     }
 }
 
@@ -320,9 +318,9 @@ fileprivate struct CreditImage: View {
                 Image(uiImage: imageData.image!)
                     .resizable()
                     .clipShape(Circle())
+                    .aspectRatio(contentMode: .fill)
                     .overlay(Circle().stroke(Color.secondary, lineWidth: 1))
                     .frame(width: 100.0, height: 100.0)
-                    .aspectRatio(contentMode: .fit)
             }
             }
             .onAppear {
