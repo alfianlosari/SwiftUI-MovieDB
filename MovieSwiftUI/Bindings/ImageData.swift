@@ -36,7 +36,7 @@ final class ImageData: BindableObject {
                 guard let image = UIImage(data: data) else {
                     return
                 }
-                ImageData.imageCache.setObject(image, forKey: urlString  as AnyObject)
+                ImageData.imageCache.setObject(image, forKey: urlString as AnyObject)
                 DispatchQueue.main.async { [weak self] in
                     self?.image = image
                 }
@@ -51,5 +51,4 @@ final class ImageData: BindableObject {
             didChange.send(self)
         }
     }
-
 }

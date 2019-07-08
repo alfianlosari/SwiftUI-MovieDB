@@ -18,22 +18,29 @@ final class MovieItemData: BindableObject {
         self.movieService = movieService
         self.movie = movie
     }
+
+    var currentRequest: Subscribers.Sink<Movie, Error>?
     
     func loadMovie() {
-        movieService.fetchMovie(id: movie.id, successHandler: {[weak self] (movie) in
+        currentRequest?.cancel()
+        currentRequest = movieService.fetchMovie(id: movie.id).sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .finished:
+                break
+            }
+        }, receiveValue: { [weak self] movie in
             self?.movie = movie
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+        })
     }
-    
-    
 
-    
     var movie: Movie {
         didSet {
-            didChange.send(self)
+            DispatchQueue.main.async {
+                self.didChange.send(self)
+            }
+
         }
     }
-    
 }

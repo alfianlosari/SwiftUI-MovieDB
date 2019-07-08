@@ -17,51 +17,62 @@ final class MovieSearchData: BindableObject {
     init(movieService: MovieService) {
         self.movieService = movieService
     }
+
+    private var currentRequest: Subscribers.Sink<MoviesResponse, Error>?
     
     func searchMovies(query: String) {
         self.movies = []
         self.error = nil
         self.emptyResultQuery = nil
-        guard query.count > 1 else {
-            return
-        }
+        guard !query.isEmpty else { return }
                 
         self.isSearching = true
-        
-        movieService.searchMovie(query: query, params: nil, successHandler: { [weak self] (response) in
-            self?.isSearching = false
+        currentRequest?.cancel()
+        currentRequest = movieService.searchMovie(query: SearchQuery(textQuery: query), params: nil).sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure(let error):
+                self.error = error.localizedDescription
+            case .finished:
+                break
+            }
+            self.isSearching = false
+        }, receiveValue: { [weak self] response in
             self?.movies = response.results
             if response.results.isEmpty {
                 self?.emptyResultQuery = query
             }
-        }) { (error) in
-            self.isSearching = false
-            self.error = error.localizedDescription
-        }
+        })
     }
     
     var error: String? = nil {
         didSet {
-            didChange.send(self)
+            DispatchQueue.main.async {
+                self.didChange.send(self)
+            }
         }
     }
     
     var isSearching = false {
         didSet {
-            didChange.send(self)
+            DispatchQueue.main.async {
+                self.didChange.send(self)
+            }
         }
     }
     
     var movies: [Movie] = [] {
         didSet {
-            didChange.send(self)
+            DispatchQueue.main.async {
+                self.didChange.send(self)
+            }
         }
     }
     
     var emptyResultQuery: String? = nil {
         didSet {
-            didChange.send(self)
+            DispatchQueue.main.async {
+                self.didChange.send(self)
+            }
         }
     }
-    
 }

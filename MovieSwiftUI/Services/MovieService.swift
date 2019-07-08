@@ -1,14 +1,28 @@
 import Foundation
+import Combine
 
-protocol MovieService {
-    
-    func fetchMovies(from endpoint: Endpoint, params: [String: String]?, successHandler: @escaping (_ response: MoviesResponse) -> Void, errorHandler: @escaping(_ error: Error) -> Void)
-    func fetchMovie(id: Int, successHandler: @escaping (_ response: Movie) -> Void, errorHandler: @escaping(_ error: Error) -> Void)
-    func searchMovie(query: String, params: [String: String]?, successHandler: @escaping (_ response: MoviesResponse) -> Void, errorHandler: @escaping(_ error: Error) -> Void)
+protocol MovieService {    
+    func fetchMovies(from endpoint: Endpoint, params: [String: String]?) -> AnyPublisher<MoviesResponse, Error>
+    func fetchMovie(id: Int) -> AnyPublisher<Movie, Error>
+    func searchMovie(query: SearchQuery, params: [String : String]?) -> AnyPublisher<MoviesResponse, Error>
 }
 
+struct SearchQuery {
+    let language: Locale = Locale.current
+    let allowAdult: Bool = false
+    let textQuery: String
 
-public enum Endpoint: String, CustomStringConvertible, CaseIterable {
+    var parameters: [String: String] {
+        return [
+            "language": self.language.identifier,
+            "include_adult": self.allowAdult ? "true" : "false",
+            "region": self.language.regionCode ?? "FR",
+            "query": self.textQuery
+        ]
+    }
+}
+
+public enum Endpoint: String, CaseIterable {
     case nowPlaying = "now_playing"
     case upcoming
     case popular
@@ -22,7 +36,6 @@ public enum Endpoint: String, CustomStringConvertible, CaseIterable {
         case .topRated: return "Top Rated"
         }
     }
-    
     
     public init?(index: Int) {
         switch index {
@@ -40,14 +53,14 @@ public enum Endpoint: String, CustomStringConvertible, CaseIterable {
         }
         self = first
     }
-    
 }
 
 public enum MovieError: Error {
-    case apiError
-    case invalidEndpoint
-    case invalidResponse
+    case apiError(Error)
+    case invalidEndpoint(URL)
+    case invalidParameters([String: String])
+    case invalidResponse(URLResponse?)
     case noData
-    case serializationError
+    case serializationError(Error)
 }
 
