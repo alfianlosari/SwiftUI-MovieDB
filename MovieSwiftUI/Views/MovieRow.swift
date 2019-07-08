@@ -25,13 +25,13 @@ struct MovieRow : View {
                         NavigationLink(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
                             MovieItem(movie: movie)
                                 .frame(width: 300)
-                                .padding(.trailing, 20)
+                                .padding(.top, 20)
+                                .padding(.bottom)
                         }
                     }
-                }
-                .padding(.leading, 20)
+                }.offset(x: 16, y: 0)
             }
-        }.padding(.top)
+        }
     }
 }
 

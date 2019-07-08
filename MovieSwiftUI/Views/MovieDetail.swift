@@ -47,41 +47,30 @@ struct MovieDetail : View {
                             Text(movie.voteAveragePercentText)
                                 .color(.white)
                                 .font(.subheadline)
-                            
                         }
-                        
-                        }
-                        .padding(.leading)
-                        .padding(.bottom)
+                    }
+                    .padding(.leading)
+                    .padding(.bottom)
+
                     Spacer()
                 }
-                }
-                
-                .listRowInsets(EdgeInsets())
-            
-            
-            
+            }
+            .listRowInsets(EdgeInsets())
+
             VStack(alignment: .leading, spacing: 4.0) {
-                
                 if (movie.tagline != nil) {
                     Text(movie.tagline!)
-                        
                         .color(.primary)
                         .font(.headline)
                         .lineLimit(2)
-                    
                 }
                 
                 Text(movie.overview)
                     .color(.secondary)
                     .font(.body)
                     .lineLimit(nil)
-                
-                
-                
-                }.padding()
-                .listRowInsets(EdgeInsets())
-            
+            }.padding()
+            .listRowInsets(EdgeInsets())
             
             if movie.casts != nil {
                 CastRow(casts: movie.casts!.filter { $0.profilePath != nil })
@@ -109,20 +98,14 @@ struct MovieDetail : View {
                     Text("Homepage")
                         .color(.primary)
                         .font(.headline)
-                    
-                    
-                    
+
                     LinkRow(name: movie.homepage!, url: movie.homepageURL)
-                    }
-                    .padding()
-                    .listRowInsets(EdgeInsets())
-                
-                
+                }
+                .padding()
+                .listRowInsets(EdgeInsets())
             }
-            
-            
+
             if movie.movieVideos != nil {
-                
                 Text("Videos")
                     .color(.primary)
                     .font(.headline)
@@ -133,25 +116,12 @@ struct MovieDetail : View {
                     LinkRow(name: video.name, url: video.youtubeURL)
                         .padding()
                         .listRowInsets(EdgeInsets())
-                    
-                    
-                    
-                    
                 }
-                
-                
-                
-                
-                
-                
             }
-            
-            }
-            .edgesIgnoringSafeArea(.top)
-            .navigationBarHidden(true)
-            .onAppear {
-                self.movieData.loadMovie()
         }
+        .edgesIgnoringSafeArea(.top)
+        .navigationBarHidden(true)
+        .onAppear { self.movieData.reloadMovie() }
     }
 }
 
@@ -192,22 +162,21 @@ fileprivate struct CastRow: View {
                                 Text(cast.name)
                                     .color(.primary)
                                     .font(.caption)
-                                
+
                                 Text(cast.character)
                                     .color(.secondary)
                                     .font(.caption)
-                                
+
                             }
-                            }.padding(.trailing)
+                        }.padding(.trailing)
                     }
-                    }.padding(.leading, 16)
-                }.frame(height: 165)
+                }.padding(.leading, 16)
+            }.frame(height: 165)
         }
     }
 }
 
 fileprivate struct CrewRow: View {
-    
     var crews: [MovieCrew]
     
     var body: some View {
@@ -224,21 +193,21 @@ fileprivate struct CrewRow: View {
                             if crew.profileURL != nil {
                                 CreditImage(imageData: ImageData(movieURL: crew.profileURL!))
                             }
-                            
+
                             VStack(spacing: 4) {
                                 Text(crew.name)
                                     .color(.primary)
                                     .font(.caption)
-                                
+
                                 Text(crew.job)
                                     .color(.secondary)
                                     .font(.caption)
-                                
+
                             }
-                            }.padding(.trailing)
+                        }.padding(.trailing)
                     }
-                    }.padding(.leading, 16)
-                }.frame(height: 165)
+                }.padding(.leading, 16)
+            }.frame(height: 165)
         }
     }
 }
@@ -265,15 +234,15 @@ fileprivate struct ProductionCompanyRow: View {
                                     .foregroundColor(.gray)
                                     .frame(width: 100.0, height: 100.0)
                             }
-                            
+
                             Text(company.name)
                                 .color(.primary)
                                 .font(.caption)
-                            
-                            }.padding(.trailing)
+
+                        }.padding(.trailing)
                     }
-                    }.padding(.leading, 16)
-                }.frame(height: 150)
+                }.padding(.leading, 16)
+            }.frame(height: 150)
         }
     }
 }
@@ -283,7 +252,6 @@ fileprivate struct SpokenLanguageRow: View {
     var languages: [SpokenLanguage]
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 8) {
             Text("Languages")
                 .color(.primary)
@@ -297,8 +265,8 @@ fileprivate struct SpokenLanguageRow: View {
                     
                 }
             }
-            }
-            .padding()
+        }
+        .padding()
     }
 }
 
@@ -321,16 +289,14 @@ fileprivate struct CreditImage: View {
                     .frame(width: 100.0, height: 100.0)
                     .aspectRatio(contentMode: .fit)
             }
-            }
-            .onAppear {
-                self.imageData.downloadImage()
         }
+        .onAppear { self.imageData.downloadImage() }
     }
 }
 
 fileprivate struct PosterImage: View {
-    
     @State var imageData: ImageData
+
     var body: some View {
         ZStack {
             Rectangle()
@@ -342,13 +308,10 @@ fileprivate struct PosterImage: View {
                     .resizable()
                     .aspectRatio(500/750, contentMode: .fit)
             }
-            }
-            .onAppear {
-                self.imageData.downloadImage()
         }
+        .onAppear { self.imageData.downloadImage() }
     }
 }
-
 
 #if DEBUG
 struct MovieDetail_Previews : PreviewProvider {
