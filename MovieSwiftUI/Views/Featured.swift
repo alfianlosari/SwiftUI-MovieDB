@@ -14,11 +14,11 @@ struct Featured: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
+            Group {
                 if movieData.isLoading {
                     ActivityIndicatorView()
                 } else {
-                    List {
+                    ScrollView(.vertical, showsIndicators: false) {
                         ForEach(movieData.movies) { row in
                             MovieRow(categoryName: row.categoryName, movies: row.movies)
                                 .frame(height: 320)
@@ -26,9 +26,14 @@ struct Featured: View {
                         }
                     }
                 }
-                }
-                .navigationBarTitle(Text("SwiftUI MovieDB"))
             }
-            .tabItemLabel(Text("Featured"))
+            .navigationBarTitle("SwiftUI MovieDB")
+        }
+        .tabItem {
+            VStack(alignment: .center) {
+                Image(systemName: "star")
+                Text("Featured")
+            }
+        }
     }
 }

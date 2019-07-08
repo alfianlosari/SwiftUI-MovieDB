@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MovieItem : View {
+struct MovieItem: View {
     
     var movie: Movie
 
@@ -25,8 +25,8 @@ struct MovieItem : View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
                     .frame(height: 40)
-                }
             }
+        }
     }
 }
 
@@ -50,8 +50,8 @@ struct MovieItemImage: View {
                     .cornerRadius(5)
                     .shadow(radius: 10)
             }
-            }.onAppear {
-                self.imageData.downloadImage()
+        }.onAppear {
+            self.imageData.downloadImage()
         }
     }
 }

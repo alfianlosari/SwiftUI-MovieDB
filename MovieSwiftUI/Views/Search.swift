@@ -8,6 +8,10 @@
 
 import SwiftUI
 
+extension Optional where Wrapped == String {
+    var isNotNilNorEmpty: Bool { self?.isEmpty ?? false }
+}
+
 struct Search: View {
     
     @EnvironmentObject private var movieSearchData: MovieSearchData
@@ -30,26 +34,21 @@ struct Search: View {
                     ActivityIndicatorView()
                 }
                 
-                if movieSearchData.error != nil {
+                if movieSearchData.error.isNotNilNorEmpty {
                     MessageText(text: movieSearchData.error!)
-                    
                 }
-                
-                if self.emptyResultsText != nil {
+
+                if self.emptyResultsText.isNotNilNorEmpty {
                     MessageText(text: self.emptyResultsText!)
                 }
-                
-                }
-                
-                .navigationBarTitle(Text("Search"))
-            }
-            .onDisappear(perform: {
-                self.movieSearchData.emptyResultQuery = nil
-                self.movieSearchData.movies = []
-                self.movieSearchData.isSearching = false
-            })
-            
-            .tabItemLabel(Text("Search"))
+            }.navigationBarTitle("Search")
+        }
+        .onDisappear(perform: {
+            self.movieSearchData.emptyResultQuery = nil
+            self.movieSearchData.movies = []
+            self.movieSearchData.isSearching = false
+        })
+        .tabItem { Text("Search") }
     }
 }
 
@@ -61,20 +60,16 @@ struct SearchList: View {
     
     var body: some View {
         VStack {
-            List {
-                TextField($text, placeholder: Text("Search your favorite movie"), onEditingChanged: { (_) in
-                }) {
-                    self.keyboardData.dismissKeyboard()
-                    self.movieSearchData.searchMovies(query: self.text)
-                    }
-                    .textFieldStyle(.roundedBorder)
-                    .foregroundColor(.secondary)
-                    .padding()
-                    .listRowInsets(EdgeInsets())
-                
-                
-                ForEach(movieSearchData.movies) { movie in
-                    NavigationButton(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
+            TextField("Search your favorite movie", text: $text) {
+                self.keyboardData.dismissKeyboard()
+                self.movieSearchData.searchMovies(query: self.text)
+            }
+            .textFieldStyle(.roundedBorder)
+                .foregroundColor(.secondary)
+                .padding()
+
+            List(movieSearchData.movies) { movie in
+                    NavigationLink(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
                         VStack(alignment: .leading) {
                             Text(movie.title)
                                 .color(.primary)
@@ -83,13 +78,11 @@ struct SearchList: View {
                             Text(movie.yearText)
                                 .color(.secondary)
                                 .font(.subheadline)
-                            
                         }
-                    }
                 }
             }
             
-            if (self.keyboardData.height != nil) {
+            if self.keyboardData.height != nil {
                 Rectangle()
                     .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0))
                     .frame(height: self.keyboardData.height!)

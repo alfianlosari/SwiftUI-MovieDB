@@ -14,15 +14,15 @@ struct MovieRow : View {
     var movies: [Movie]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(self.categoryName)
                 .font(.title)
-                .padding(.leading)
-            
-            ScrollView(showsHorizontalIndicator: false) {
-                HStack(alignment: .top, spacing: 0) {
+                .padding([.leading, .top])
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .top, spacing: 20) {
                     ForEach(self.movies.identified(by: \.title)) { movie in
-                        NavigationButton(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
+                        NavigationLink(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
                             MovieItem(movie: movie)
                                 .frame(width: 300)
                                 .padding(.trailing, 20)

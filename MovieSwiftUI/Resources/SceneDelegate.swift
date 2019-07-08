@@ -21,13 +21,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller
         let movieStore = MovieStore.shared
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = UIHostingController(rootView: Home().environmentObject(MovieHomeData(movieService: movieStore, endpoints: Endpoint.allCases))
-            .environmentObject(MovieSearchData(movieService: movieStore))
-            .environmentObject(KeyboardData())
-        )
-        self.window = window
-        window.makeKeyAndVisible()
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView:
+                Home()
+                    .environmentObject(MovieHomeData(movieService: movieStore, endpoints: Endpoint.allCases))
+                    .environmentObject(MovieSearchData(movieService: movieStore))
+                    .environmentObject(KeyboardData())
+            )
+
+            self.window = window
+            window.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

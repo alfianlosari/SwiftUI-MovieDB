@@ -161,13 +161,11 @@ fileprivate struct LinkRow: View {
     var url: URL?
     
     var body: some View {
-        PresentationButton(
+        PresentationLink(destination: SafariView(url: url!) .edgesIgnoringSafeArea(.bottom)) {
             Text(name)
                 .font(.caption)
                 .color(.primary)
-            , destination: SafariView(url: url!)
-                .edgesIgnoringSafeArea(.bottom)
-        )
+        }
     }
 }
 
@@ -181,9 +179,8 @@ fileprivate struct CastRow: View {
                 .color(.primary)
                 .font(.headline)
                 .padding()
-            
-            
-            ScrollView(showsHorizontalIndicator: false) {
+
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 8) {
                     ForEach(self.casts.identified(by: \.name)) { cast in
                         VStack(spacing: 8) {
@@ -220,7 +217,7 @@ fileprivate struct CrewRow: View {
                 .font(.headline)
                 .padding()
             
-            ScrollView(showsHorizontalIndicator: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 8) {
                     ForEach(self.crews.identified(by: \.name)) { crew in
                         VStack(spacing: 8) {
@@ -256,8 +253,8 @@ fileprivate struct ProductionCompanyRow: View {
                 .color(.primary)
                 .font(.headline)
                 .padding()
-            
-            ScrollView(showsHorizontalIndicator: false) {
+
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 8) {
                     ForEach(self.productionCompanies.identified(by: \.name)) { company in
                         VStack(spacing: 8) {
