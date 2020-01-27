@@ -26,9 +26,11 @@ struct Featured: View {
                         }
                     }
                 }
-                }
-                .navigationBarTitle(Text("SwiftUI MovieDB"))
             }
-            .tabItemLabel(Text("Featured"))
+            .navigationBarTitle(Text("SwiftUI MovieDB"))
+        }
+        .tabItem({
+            Text("Featured")
+        })
     }
 }

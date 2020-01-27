@@ -17,11 +17,11 @@ struct MovieItem : View {
             MovieItemImage(imageData: ImageData(movieURL: movie.backdropURL))
             VStack(alignment: .leading, spacing: 4) {
                 Text(movie.title)
-                    .color(.primary)
+                    .foregroundColor(.primary)
                     .font(.headline)
                 Text(movie.overview)
                     .font(.subheadline)
-                    .color(.secondary)
+                    .foregroundColor(.secondary)
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
                     .frame(height: 40)

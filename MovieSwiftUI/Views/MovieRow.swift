@@ -19,18 +19,18 @@ struct MovieRow : View {
                 .font(.title)
                 .padding(.leading)
             
-            ScrollView(showsHorizontalIndicator: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 0) {
-                    ForEach(self.movies.identified(by: \.title)) { movie in
-                        NavigationButton(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
+                    ForEach(self.movies, id: \.title) { movie in
+                        NavigationLink(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
                             MovieItem(movie: movie)
                                 .frame(width: 300)
                                 .padding(.trailing, 20)
                         }
                     }
                 }
-                .padding(.leading, 20)
             }
+            .padding(.leading, 20)
         }.padding(.top)
     }
 }

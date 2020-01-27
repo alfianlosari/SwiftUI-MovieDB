@@ -10,12 +10,12 @@ import Combine
 import SwiftUI
 import UIKit
 
-final class ImageData: BindableObject {
+final class ImageData: ObservableObject {
     
     private static let imageCache = NSCache<AnyObject, AnyObject>()
-    
-    let didChange = PassthroughSubject<ImageData, Never>()
     private let movieURL: URL
+    
+    @Published var image: UIImage? = nil
     
     init(movieURL: URL) {
         self.movieURL = movieURL
@@ -30,9 +30,9 @@ final class ImageData: BindableObject {
         }
         
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
             do {
-                let data = try Data(contentsOf: strongSelf.movieURL)
+                let data = try Data(contentsOf: self.movieURL)
                 guard let image = UIImage(data: data) else {
                     return
                 }
@@ -46,10 +46,8 @@ final class ImageData: BindableObject {
         }
     }
     
-    var image: UIImage? = nil {
-        didSet {
-            didChange.send(self)
-        }
-    }
+    
+    
+    
 
 }

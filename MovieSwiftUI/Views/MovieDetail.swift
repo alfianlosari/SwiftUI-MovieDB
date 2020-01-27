@@ -30,34 +30,34 @@ struct MovieDetail : View {
                     VStack(alignment: .leading, spacing: 8) {
                         if (movie.genreText != nil) {
                             Text(movie.genreText!)
-                                .color(.white)
+                                .foregroundColor(.white)
                                 .font(.subheadline)
                         }
                         HStack {
                             Text(movie.yearText)
-                                .color(.white)
+                                .foregroundColor(.white)
                                 .font(.subheadline)
                             
                             if (movie.durationText != nil) {
                                 Text(movie.durationText!)
-                                    .color(.white)
+                                    .foregroundColor(.white)
                                     .font(.subheadline)
                             }
                             
                             Text(movie.voteAveragePercentText)
-                                .color(.white)
+                                .foregroundColor(.white)
                                 .font(.subheadline)
                             
                         }
                         
-                        }
-                        .padding(.leading)
-                        .padding(.bottom)
+                    }
+                    .padding(.leading)
+                    .padding(.bottom)
                     Spacer()
                 }
-                }
+            }
                 
-                .listRowInsets(EdgeInsets())
+            .listRowInsets(EdgeInsets())
             
             
             
@@ -66,20 +66,20 @@ struct MovieDetail : View {
                 if (movie.tagline != nil) {
                     Text(movie.tagline!)
                         
-                        .color(.primary)
+                        .foregroundColor(.primary)
                         .font(.headline)
                         .lineLimit(2)
                     
                 }
                 
                 Text(movie.overview)
-                    .color(.secondary)
+                    .foregroundColor(.secondary)
                     .font(.body)
                     .lineLimit(nil)
                 
                 
                 
-                }.padding()
+            }.padding()
                 .listRowInsets(EdgeInsets())
             
             
@@ -107,15 +107,15 @@ struct MovieDetail : View {
             if movie.homepage != nil {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Homepage")
-                        .color(.primary)
+                        .foregroundColor(.primary)
                         .font(.headline)
                     
                     
                     
                     LinkRow(name: movie.homepage!, url: movie.homepageURL)
-                    }
-                    .padding()
-                    .listRowInsets(EdgeInsets())
+                }
+                .padding()
+                .listRowInsets(EdgeInsets())
                 
                 
             }
@@ -124,33 +124,22 @@ struct MovieDetail : View {
             if movie.movieVideos != nil {
                 
                 Text("Videos")
-                    .color(.primary)
+                    .foregroundColor(.primary)
                     .font(.headline)
                     .padding()
                     .listRowInsets(EdgeInsets())
                 
-                ForEach((movie.movieVideos ?? []).identified(by: \.name)) { video in
+                ForEach(movie.movieVideos ?? [], id: \.name) { video in
                     LinkRow(name: video.name, url: video.youtubeURL)
                         .padding()
                         .listRowInsets(EdgeInsets())
-                    
-                    
-                    
-                    
                 }
-                
-                
-                
-                
-                
-                
             }
-            
-            }
-            .edgesIgnoringSafeArea(.top)
-            .navigationBarHidden(true)
-            .onAppear {
-                self.movieData.loadMovie()
+        }
+        .edgesIgnoringSafeArea(.top)
+        .navigationBarHidden(true)
+        .onAppear {
+            self.movieData.loadMovie()
         }
     }
 }
@@ -159,15 +148,21 @@ fileprivate struct LinkRow: View {
     
     var name: String
     var url: URL?
+    @State var showLink = false
     
     var body: some View {
-        PresentationButton(
+        Button(action: {
+            self.showLink.toggle()
+        }) {
             Text(name)
-                .font(.caption)
-                .color(.primary)
-            , destination: SafariView(url: url!)
-                .edgesIgnoringSafeArea(.bottom)
-        )
+            .font(.caption)
+            .foregroundColor(.primary)
+        }
+        .sheet(isPresented: self.$showLink) {
+            SafariView(url: self.url!)
+        }
+        .edgesIgnoringSafeArea(.bottom)
+
     }
 }
 
@@ -178,33 +173,33 @@ fileprivate struct CastRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Casts")
-                .color(.primary)
+                .foregroundColor(.primary)
                 .font(.headline)
                 .padding()
             
             
-            ScrollView(showsHorizontalIndicator: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 8) {
-                    ForEach(self.casts.identified(by: \.name)) { cast in
+                    ForEach(self.casts, id: \.name) { cast in
                         VStack(spacing: 8) {
                             if cast.profileURL != nil {
                                 CreditImage(imageData: ImageData(movieURL: cast.profileURL!))
                             }
-
+                            
                             VStack(spacing: 4) {
                                 Text(cast.name)
-                                    .color(.primary)
+                                    .foregroundColor(.primary)
                                     .font(.caption)
                                 
                                 Text(cast.character)
-                                    .color(.secondary)
+                                    .foregroundColor(.secondary)
                                     .font(.caption)
                                 
                             }
-                            }.padding(.trailing)
+                        }.padding(.trailing)
                     }
-                    }.padding(.leading, 16)
-                }.frame(height: 165)
+                }.padding(.leading, 16)
+            }.frame(height: 165)
         }
     }
 }
@@ -216,13 +211,13 @@ fileprivate struct CrewRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Crews")
-                .color(.primary)
+                .foregroundColor(.primary)
                 .font(.headline)
                 .padding()
             
-            ScrollView(showsHorizontalIndicator: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 8) {
-                    ForEach(self.crews.identified(by: \.name)) { crew in
+                    ForEach(self.crews, id: \.name) { crew in
                         VStack(spacing: 8) {
                             if crew.profileURL != nil {
                                 CreditImage(imageData: ImageData(movieURL: crew.profileURL!))
@@ -230,18 +225,18 @@ fileprivate struct CrewRow: View {
                             
                             VStack(spacing: 4) {
                                 Text(crew.name)
-                                    .color(.primary)
+                                    .foregroundColor(.primary)
                                     .font(.caption)
                                 
                                 Text(crew.job)
-                                    .color(.secondary)
+                                    .foregroundColor(.secondary)
                                     .font(.caption)
                                 
                             }
-                            }.padding(.trailing)
+                        }.padding(.trailing)
                     }
-                    }.padding(.leading, 16)
-                }.frame(height: 165)
+                }.padding(.leading, 16)
+            }.frame(height: 165)
         }
     }
 }
@@ -253,13 +248,13 @@ fileprivate struct ProductionCompanyRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Produced by")
-                .color(.primary)
+                .foregroundColor(.primary)
                 .font(.headline)
                 .padding()
             
-            ScrollView(showsHorizontalIndicator: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 8) {
-                    ForEach(self.productionCompanies.identified(by: \.name)) { company in
+                    ForEach(self.productionCompanies, id: \.name) { company in
                         VStack(spacing: 8) {
                             if company.logoURL != nil {
                                 CreditImage(imageData: ImageData(movieURL: company.logoURL!))
@@ -270,13 +265,13 @@ fileprivate struct ProductionCompanyRow: View {
                             }
                             
                             Text(company.name)
-                                .color(.primary)
+                                .foregroundColor(.primary)
                                 .font(.caption)
                             
-                            }.padding(.trailing)
+                        }.padding(.trailing)
                     }
-                    }.padding(.leading, 16)
-                }.frame(height: 150)
+                }.padding(.leading, 16)
+            }.frame(height: 150)
         }
     }
 }
@@ -289,19 +284,19 @@ fileprivate struct SpokenLanguageRow: View {
         
         VStack(alignment: .leading, spacing: 8) {
             Text("Languages")
-                .color(.primary)
+                .foregroundColor(.primary)
                 .font(.headline)
             
             VStack(alignment: .leading, spacing: 4) {
-                ForEach(self.languages.identified(by: \.name)) { language in
+                ForEach(self.languages, id: \.name) {
+                    language in
                     Text(language.name)
                         .font(.caption)
-                        .color(.primary)
-                    
+                        .foregroundColor(.primary)
                 }
             }
-            }
-            .padding()
+        }
+        .padding()
     }
 }
 
@@ -324,9 +319,9 @@ fileprivate struct CreditImage: View {
                     .frame(width: 100.0, height: 100.0)
                     .aspectRatio(contentMode: .fit)
             }
-            }
-            .onAppear {
-                self.imageData.downloadImage()
+        }
+        .onAppear {
+            self.imageData.downloadImage()
         }
     }
 }
@@ -345,9 +340,9 @@ fileprivate struct PosterImage: View {
                     .resizable()
                     .aspectRatio(500/750, contentMode: .fit)
             }
-            }
-            .onAppear {
-                self.imageData.downloadImage()
+        }
+        .onAppear {
+            self.imageData.downloadImage()
         }
     }
 }

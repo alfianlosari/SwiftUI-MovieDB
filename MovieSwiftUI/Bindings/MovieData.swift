@@ -21,10 +21,12 @@ struct MovieHomeRow: Identifiable {
     
 }
 
-final class MovieHomeData: BindableObject {
+final class MovieHomeData: ObservableObject {
     
-    let didChange = PassthroughSubject<MovieHomeData, Never>()
     private let movieService: MovieService
+    
+    @Published var isLoading: Bool = false
+    @Published var movies: [MovieHomeRow] = []
     
     init(movieService: MovieService, endpoints: [Endpoint]) {
         self.movieService = movieService
@@ -38,11 +40,10 @@ final class MovieHomeData: BindableObject {
         var rows: [MovieHomeRow] = []
         isLoading = true
         
-        
         for (index, endpoint) in endpoints.enumerated() {
             queue.async(group: group) {
                 group.enter()
-                self.movieService.fetchMovies(from: endpoint, params: nil, successHandler: {  (response) in
+                self.movieService.fetchMovies(from: endpoint, params: nil, successHandler: { (response) in
                     rows.append(MovieHomeRow(categoryName: endpoint.description, movies: response.results, order: index))
                     group.leave()
                 }) { (error) in
@@ -52,30 +53,17 @@ final class MovieHomeData: BindableObject {
             }
         }
         
-        group.notify(queue: DispatchQueue.main) {
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
             self.isLoading = false
             rows.sort { $0.order < $1.order }
             self.movies = rows
         }
     }
-    
-    var isLoading: Bool = false {
-        didSet {
-            didChange.send(self)
-        }
-    }
-    
-    var movies: [MovieHomeRow] = [] {
-        didSet {
-            didChange.send(self)
-        }
-    }
-    
 }
 
 fileprivate extension Endpoint {
-    
-    
+
     var homeIndex: Int {
         switch self {
         case .nowPlaying: return 1

@@ -9,10 +9,13 @@
 import SwiftUI
 import Combine
 
-final class MovieSearchData: BindableObject {
+final class MovieSearchData: ObservableObject {
     
-    let didChange = PassthroughSubject<MovieSearchData, Never>()
     private let movieService: MovieService
+    @Published var error: String? = nil
+    @Published var isSearching = false
+    @Published var movies: [Movie] = []
+    @Published var emptyResultQuery: String? = nil
     
     init(movieService: MovieService) {
         self.movieService = movieService
@@ -34,33 +37,9 @@ final class MovieSearchData: BindableObject {
             if response.results.isEmpty {
                 self?.emptyResultQuery = query
             }
-        }) { (error) in
-            self.isSearching = false
-            self.error = error.localizedDescription
-        }
-    }
-    
-    var error: String? = nil {
-        didSet {
-            didChange.send(self)
-        }
-    }
-    
-    var isSearching = false {
-        didSet {
-            didChange.send(self)
-        }
-    }
-    
-    var movies: [Movie] = [] {
-        didSet {
-            didChange.send(self)
-        }
-    }
-    
-    var emptyResultQuery: String? = nil {
-        didSet {
-            didChange.send(self)
+        }) { [weak self] (error) in
+            self?.isSearching = false
+            self?.error = error.localizedDescription
         }
     }
     

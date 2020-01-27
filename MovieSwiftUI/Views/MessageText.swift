@@ -14,7 +14,7 @@ struct MessageText: View {
     
     var body: some View {
         Text(self.text)
-            .color(.primary)
+            .foregroundColor(.primary)
             .lineLimit(2)
             .font(.headline)
             .padding()

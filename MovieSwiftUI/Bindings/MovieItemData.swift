@@ -9,10 +9,11 @@
 import SwiftUI
 import Combine
 
-final class MovieItemData: BindableObject {
+final class MovieItemData: ObservableObject {
     
-    let didChange = PassthroughSubject<MovieItemData, Never>()
     private let movieService: MovieService
+    
+    @Published var movie: Movie
     
     init(movieService: MovieService, movie: Movie) {
         self.movieService = movieService
@@ -24,15 +25,6 @@ final class MovieItemData: BindableObject {
             self?.movie = movie
         }) { (error) in
             print(error.localizedDescription)
-        }
-    }
-    
-    
-
-    
-    var movie: Movie {
-        didSet {
-            didChange.send(self)
         }
     }
     

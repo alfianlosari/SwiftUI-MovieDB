@@ -48,8 +48,7 @@ struct Search: View {
                 self.movieSearchData.movies = []
                 self.movieSearchData.isSearching = false
             })
-            
-            .tabItemLabel(Text("Search"))
+            .tabItem({Text("Search")})
     }
 }
 
@@ -62,26 +61,30 @@ struct SearchList: View {
     var body: some View {
         VStack {
             List {
-                TextField($text, placeholder: Text("Search your favorite movie"), onEditingChanged: { (_) in
-                }) {
+                
+                
+                TextField("Search your favorite movie", text: $text, onEditingChanged: { _ -> Void in
                     self.keyboardData.dismissKeyboard()
                     self.movieSearchData.searchMovies(query: self.text)
-                    }
-                    .textFieldStyle(.roundedBorder)
+                }, onCommit: {})
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
                     .foregroundColor(.secondary)
                     .padding()
                     .listRowInsets(EdgeInsets())
                 
                 
                 ForEach(movieSearchData.movies) { movie in
-                    NavigationButton(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
+                    
+                    
+                    NavigationLink(destination: MovieDetail(movieData: MovieItemData(movieService: MovieStore.shared, movie: movie))) {
                         VStack(alignment: .leading) {
                             Text(movie.title)
-                                .color(.primary)
+                                .foregroundColor(.primary)
                                 .font(.headline)
                             
                             Text(movie.yearText)
-                                .color(.secondary)
+                                .foregroundColor(.secondary)
                                 .font(.subheadline)
                             
                         }
@@ -91,7 +94,7 @@ struct SearchList: View {
             
             if (self.keyboardData.height != nil) {
                 Rectangle()
-                    .foregroundColor(Color(red: 0, green: 0, blue: 0, opacity: 0))
+                    .foregroundColor(Color(red: 0.0, green: 0.0, blue: 0.0, opacity: 0.0))
                     .frame(height: self.keyboardData.height!)
                 
             }

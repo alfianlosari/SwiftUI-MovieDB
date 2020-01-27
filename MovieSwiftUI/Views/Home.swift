@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Home: View {
     var body: some View {
-        TabbedView {
+        TabView {
             Featured()
                 .tag(0)
             Search()

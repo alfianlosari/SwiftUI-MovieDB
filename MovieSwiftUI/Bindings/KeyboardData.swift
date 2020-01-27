@@ -10,17 +10,9 @@ import SwiftUI
 import Combine
 import UIKit
 
-final class KeyboardData: BindableObject {
+final class KeyboardData: ObservableObject {
     
-    let didChange = PassthroughSubject<KeyboardData, Never>()
-    
-    
-    var height: CGFloat? = nil {
-        didSet {
-            didChange.send(self)
-        }
-    }
-    
+    @Published var height: CGFloat? = nil
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardData.keyboardShown(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -31,7 +23,6 @@ final class KeyboardData: BindableObject {
     
     deinit {
         self.height = 0
-
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -43,7 +34,7 @@ final class KeyboardData: BindableObject {
         if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            let window = UIApplication.shared.keyWindow
+            let window = UIApplication.shared.windows.first
             let bottomPadding = (window?.safeAreaInsets.bottom ?? 0) * 2
             self.height = keyboardHeight - bottomPadding
         }
