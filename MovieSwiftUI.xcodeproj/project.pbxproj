@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		56B0B6C430966271006BB441 /* MovieSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B0B6C33096626B006BB441 /* MovieSwiftUIApp.swift */; };
 		56B0B6C630974041006BB441 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B0B6C53097403B006BB441 /* AuthenticationService.swift */; };
-		56B0B6C8309745FA006BB441 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B0B6C7309745F5006BB441 /* KeychainManager.swift */; };
 		8B1E624222A8140C00093B49 /* MovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1E624122A8140C00093B49 /* MovieRow.swift */; };
 		8B21374C22A7ED9A00BAB22F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B21374B22A7ED9A00BAB22F /* AppDelegate.swift */; };
 		8B21374E22A7ED9A00BAB22F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B21374D22A7ED9A00BAB22F /* SceneDelegate.swift */; };
@@ -37,7 +36,6 @@
 /* Begin PBXFileReference section */
 		56B0B6C33096626B006BB441 /* MovieSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSwiftUIApp.swift; sourceTree = "<group>"; };
 		56B0B6C53097403B006BB441 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
-		56B0B6C7309745F5006BB441 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		8B1E623E22A8102600093B49 /* MovieSwiftUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieSwiftUI.entitlements; sourceTree = "<group>"; };
 		8B1E624122A8140C00093B49 /* MovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRow.swift; sourceTree = "<group>"; };
 		8B21374822A7ED9A00BAB22F /* MovieSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +64,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		561AAAB5309C8498008F4E93 /* Endpoints */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Endpoints; sourceTree = "<group>"; };
+		561AAAB8309C84A2008F4E93 /* Repositories */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Repositories; sourceTree = "<group>"; };
+		561AAABB309C84C7008F4E93 /* Interfaces */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Interfaces; sourceTree = "<group>"; };
+		561AAAC5309C84D8008F4E93 /* UseCases */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UseCases; sourceTree = "<group>"; };
+		561AAAD4309C85AD008F4E93 /* Configuration */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Configuration; sourceTree = "<group>"; };
+		561AAAD7309C85B7008F4E93 /* DependencyInjection */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DependencyInjection; sourceTree = "<group>"; };
+		561AAAE9309C9C84008F4E93 /* Models  */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Models "; sourceTree = "<group>"; };
+		561AAAEA309C9CAC008F4E93 /* DTOs   */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "DTOs  "; sourceTree = "<group>"; };
+		561AAAEB309C9CEA008F4E93 /* Networking  */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Networking "; sourceTree = "<group>"; };
+		561AAAEC309C9CFD008F4E93 /* AppFlow  */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "AppFlow "; sourceTree = "<group>"; };
+		561AAAFF309CAAED008F4E93 /* MainTabBar */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MainTabBar; sourceTree = "<group>"; };
+		561AAB3F309FD4E0008F4E93 /* Theme */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Theme; sourceTree = "<group>"; };
+		561AAB46309FE3C2008F4E93 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
+		561AAB4A30A02721008F4E93 /* MovieDetails */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MovieDetails; sourceTree = "<group>"; };
+		561AAB5D30A0328A008F4E93 /* Flows */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Flows; sourceTree = "<group>"; };
 		56B0B6C93097B9B5006BB441 /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -80,6 +93,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		561AAAB1309C843B008F4E93 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				561AAAE9309C9C84008F4E93 /* Models  */,
+				561AAABB309C84C7008F4E93 /* Interfaces */,
+				561AAAC5309C84D8008F4E93 /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		561AAAB2309C844A008F4E93 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				561AAAEA309C9CAC008F4E93 /* DTOs   */,
+				561AAAB5309C8498008F4E93 /* Endpoints */,
+				561AAAB8309C84A2008F4E93 /* Repositories */,
+				56B0B6C53097403B006BB441 /* AuthenticationService.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		561AAAE8309C86F9008F4E93 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				561AAB46309FE3C2008F4E93 /* Components */,
+				561AAB3F309FD4E0008F4E93 /* Theme */,
+				561AAAEC309C9CFD008F4E93 /* AppFlow  */,
+				561AAAEB309C9CEA008F4E93 /* Networking  */,
+				561AAAD7309C85B7008F4E93 /* DependencyInjection */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		561AAAFC309CAA96008F4E93 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				56B0B6C93097B9B5006BB441 /* Authentication */,
+				561AAAFF309CAAED008F4E93 /* MainTabBar */,
+				561AAB4930A0268D008F4E93 /* MoviesScene */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		561AAB4930A0268D008F4E93 /* MoviesScene */ = {
+			isa = PBXGroup;
+			children = (
+				561AAB5D30A0328A008F4E93 /* Flows */,
+				561AAB4A30A02721008F4E93 /* MovieDetails */,
+			);
+			path = MoviesScene;
+			sourceTree = "<group>";
+		};
 		8B21373F22A7ED9A00BAB22F = {
 			isa = PBXGroup;
 			children = (
@@ -99,7 +164,11 @@
 		8B21374A22A7ED9A00BAB22F /* MovieSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				56B0B6C93097B9B5006BB441 /* Authentication */,
+				561AAAFC309CAA96008F4E93 /* Presentation */,
+				561AAAE8309C86F9008F4E93 /* Common */,
+				561AAAD4309C85AD008F4E93 /* Configuration */,
+				561AAAB2309C844A008F4E93 /* Data */,
+				561AAAB1309C843B008F4E93 /* Domain */,
 				56B0B6C33096626B006BB441 /* MovieSwiftUIApp.swift */,
 				8B1E623E22A8102600093B49 /* MovieSwiftUI.entitlements */,
 				8B3B17CB22AA8DAD00C394F4 /* Bindings */,
@@ -155,8 +224,6 @@
 		8B3B17CA22AA8D6B00C394F4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				56B0B6C7309745F5006BB441 /* KeychainManager.swift */,
-				56B0B6C53097403B006BB441 /* AuthenticationService.swift */,
 				8B540BA022A885FC004B633F /* MovieStore.swift */,
 				8B540B9E22A885FC004B633F /* MovieService.swift */,
 			);
@@ -203,6 +270,21 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				561AAAB5309C8498008F4E93 /* Endpoints */,
+				561AAAB8309C84A2008F4E93 /* Repositories */,
+				561AAABB309C84C7008F4E93 /* Interfaces */,
+				561AAAC5309C84D8008F4E93 /* UseCases */,
+				561AAAD4309C85AD008F4E93 /* Configuration */,
+				561AAAD7309C85B7008F4E93 /* DependencyInjection */,
+				561AAAE9309C9C84008F4E93 /* Models  */,
+				561AAAEA309C9CAC008F4E93 /* DTOs   */,
+				561AAAEB309C9CEA008F4E93 /* Networking  */,
+				561AAAEC309C9CFD008F4E93 /* AppFlow  */,
+				561AAAFF309CAAED008F4E93 /* MainTabBar */,
+				561AAB3F309FD4E0008F4E93 /* Theme */,
+				561AAB46309FE3C2008F4E93 /* Components */,
+				561AAB4A30A02721008F4E93 /* MovieDetails */,
+				561AAB5D30A0328A008F4E93 /* Flows */,
 				56B0B6C93097B9B5006BB441 /* Authentication */,
 			);
 			name = MovieSwiftUI;
@@ -278,7 +360,6 @@
 				56B0B6C430966271006BB441 /* MovieSwiftUIApp.swift in Sources */,
 				56B0B6C630974041006BB441 /* AuthenticationService.swift in Sources */,
 				8B540B9D22A81E11004B633F /* Home.swift in Sources */,
-				56B0B6C8309745FA006BB441 /* KeychainManager.swift in Sources */,
 				8B542ED922AA581300E5ACC5 /* KeyboardData.swift in Sources */,
 				8B542ED122AA2EA300E5ACC5 /* Search.swift in Sources */,
 				8B540BA122A885FC004B633F /* MovieService.swift in Sources */,

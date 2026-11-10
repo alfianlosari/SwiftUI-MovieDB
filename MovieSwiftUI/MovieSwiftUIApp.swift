@@ -18,7 +18,7 @@ struct MovieSwiftUIApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AuthRootView()
+            AppRootView()
                 .environmentObject(
                     MovieHomeData(
                         movieService: movieStore,

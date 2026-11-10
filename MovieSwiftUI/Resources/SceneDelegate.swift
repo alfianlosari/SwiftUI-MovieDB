@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller
         let movieStore = MovieStore.shared
-        let rootView = AuthRootView()
+        let rootView = AppRootView()
             .environmentObject(MovieHomeData(movieService: movieStore, endpoints: Endpoint.allCases))
             .environmentObject(MovieSearchData(movieService: movieStore))
             .environmentObject(KeyboardData())
